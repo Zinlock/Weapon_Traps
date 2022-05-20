@@ -31,7 +31,7 @@ datablock ExplosionData(mine_claymoreExplosion : grenade_remoteChargeExplosion)
 	impulseForce = 700;
 
 	damageRadius = 9;
-	radiusDamage = 110;
+	radiusDamage = 125;
 };
 
 datablock ProjectileData(mine_claymoreBlastProjectile)
