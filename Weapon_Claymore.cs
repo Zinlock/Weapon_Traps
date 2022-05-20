@@ -141,6 +141,7 @@ function mine_claymoreBlastProjectile::radiusDamage(%this, %obj, %col, %distance
 		%distanceFactor = 1;
 
 	%damageAmt *= %distanceFactor;
+	%damageAmt *= vectorLen(%obj.getScale());
 
 	if(vectorDot(vectorNormalize(%obj.getVelocity()), vectorNormalize(vectorSub(%col.getPosition(), %obj.getPosition()))) < 0)
 		%damageAmt /= 3;

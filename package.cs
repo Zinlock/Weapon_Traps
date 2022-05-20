@@ -46,8 +46,8 @@ package TrapWeaponPackage
 
 		if(%ray && %ray.isLandMine && %ray.client == %pl.client && %ray.canRecover && getSimTime() - %ray.trigger.creationTime > 500)
 			%ray.mineDropItem(0.4, 3);
-
-	 	Parent::activateStuff(%pl);
+		else
+	 		Parent::activateStuff(%pl);
 	}
 	
 	function MinigameSO::addMember(%mini,%client)

@@ -28,13 +28,13 @@ exec("./Weapon_TripMine.cs");
 exec("./Weapon_Claymore.cs");
 exec("./Weapon_IncenMine.cs");
 exec("./Weapon_ElectroMine.cs");
+exec("./Weapon_DoorMine.cs");
 
 // todo:
 // * concussion blast + proxy
 // * impulse proxy
 // * poison spike
 // * punji spikes
-// * door charge trap
 // * bear trap
 // * barbed wire
 // * spike strips

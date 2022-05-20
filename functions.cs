@@ -51,7 +51,10 @@ function StaticShape::mineExplode(%obj, %scale, %offset, %dir)
 		return;
 	
 	if(%scale $= "")
-		%scale = 1;
+	{
+		if((%scale = %db.explosionScale) $= "")
+			%scale = 1;
+	}
 
 	%scale = mClampF(%scale, 0.1, 5);
 
@@ -65,7 +68,7 @@ function StaticShape::mineExplode(%obj, %scale, %offset, %dir)
 		{
 			dataBlock = %trigger.projectile;
 			initialPosition = vectorAdd(%obj.getPosition(), %offset);
-			initialVelocity = (%dir !$= "" ? vectorNormalize(%dir) : (%db.explosionForward ? %obj.getForwardVector() : %obj.getUpVector()));
+			initialVelocity = (%dir !$= "" ? vectorNormalize(%dir) : (%db.explosionForward ? %obj.getForwardVector() : vectorScale(%obj.getUpVector(), %db.explosionDown ? -1 : 1)));
 			sourceObject = %trigger.sourceObject;
 			sourceShape = %obj;
 			client = %trigger.sourceClient;

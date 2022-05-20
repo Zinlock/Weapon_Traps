@@ -16,6 +16,7 @@ datablock StaticShapeData(mine_impactChargeShape)
 
 	explosionScale = 1;
 	explosionForward = false;
+	explosionDown = false;
 	explosionOffset = 0;
 
 	triggerDelay = 150; // time after triggering before blowing up
