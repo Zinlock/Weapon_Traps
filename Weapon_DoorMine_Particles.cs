@@ -30,11 +30,11 @@ datablock ParticleEmitterData(mine_doorExplosionHazeEmitter)
 {
    ejectionPeriodMS = 3;
    periodVarianceMS = 0;
-   ejectionVelocity = 9;
-   velocityVariance = 4.0;
+   ejectionVelocity = 13;
+   velocityVariance = 12.0;
    ejectionOffset   = 0.0;
-   thetaMin         = 89;
-   thetaMax         = 90;
+   thetaMin         = 0;
+   thetaMax         = 40;
    phiReferenceVel  = 0;
    phiVariance      = 360;
    overrideAdvance = false;

@@ -26,12 +26,14 @@ datablock ExplosionData(mine_doorExplosion : grenade_remoteChargeExplosion)
 	soundProfile = grenade_electroExplosionSound;
 	explosionScale = "0.5 0.5 0.5";
 
-	particleEmitter = mine_doorExplosionHazeEmitter;
-	particleDensity = 100;
-	particleRadius = 0.2;
+	particleEmitter = "";
+	particleDensity = 0;
+	particleRadius = 1;
 
 	emitter[0] = mine_doorExplosionCloudEmitter;
 	emitter[1] = mine_tripExplosionDebris2Emitter;
+	emitter[2] = mine_doorExplosionHazeEmitter;
+	emitter[3] = "";
 	
 	impulseRadius = 0;
 	impulseForce = 0;
@@ -116,11 +118,11 @@ function mine_doorBlastProjectile::radiusDamage(%this, %obj, %col, %distanceFact
 		%col.makeBlind(1.5);
 		
 		if(%col.zapTicks <= 0)
-			%col.zapTicks = 10;
+			%col.zapTicks = 20;
 		else
-			%col.zapTicks += 10;
+			%col.zapTicks += 20;
 		
-		%col.zapDamage = 0.9;
+		%col.zapDamage = 1.15;
 		
 		%col.zap();
 	}
