@@ -57,8 +57,9 @@ registerDataPref("Max Reserve Proxy Mines", "Ammo", "Weapon_Traps", "int 0 1000"
 registerDataPref("Default Reserve Stealth Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_stealthImage, weaponUseCount);
 registerDataPref("Max Reserve Stealth Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_stealthImage, weaponReserveMax);
 
-registerDataPref("Tripmine Laser Length", "Laser Tripmines", "Weapon_Traps", "int 0 1024", 16, false, false, mine_tripImage, tripBeamLength);
-registerDataPref("Stealth Mine Opacity", "Stealth Mines", "Weapon_Traps", "int 0 100", 7, false, false, mine_stealthChargeShape, opacity);
+registerDataPref("Tripmine Laser Length (16u)", "Laser Tripmines", "Weapon_Traps", "int 0 1024", 16, false, false, mine_tripImage, tripBeamLength);
+
+registerDataPref("Stealth Mine Opacity (7%)", "Stealth Mines", "Weapon_Traps", "int 0 100", 7, false, false, mine_stealthChargeShape, opacity);
 
 // todo:
 // * concussion blast + proxy
