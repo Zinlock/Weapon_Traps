@@ -39,10 +39,6 @@ datablock ShapeBaseImageData(mine_stealthImage : mine_impactImage)
 	weaponReserveMax = 2;
 };
 
-registerDataPref("Default Reserve Stealth Mines", "Stealth Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_stealthImage, weaponUseCount);
-registerDataPref("Max Reserve Stealth Mines", "Stealth Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_stealthImage, weaponReserveMax);
-registerDataPref("Stealth Mine Opacity", "Stealth Mines", "Weapon_Traps", "int 0 100", 7, false, false, mine_stealthChargeShape, opacity);
-
 function mine_stealthImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
 function mine_stealthImage::onChargeStop(%this, %obj, %slot) { %this.onFire(%obj, %slot); }

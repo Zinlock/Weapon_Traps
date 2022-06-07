@@ -154,9 +154,6 @@ datablock ShapeBaseImageData(mine_impactImage)
 	stateWaitForTimeout[3] = true;
 };
 
-registerDataPref("Default Reserve Blast Mines", "Blast Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_impactImage, weaponUseCount);
-registerDataPref("Max Reserve Blast Mines", "Blast Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_impactImage, weaponReserveMax);
-
 function Player::doMineAmmoText(%pl)
 {
 	if($Pref::XMines::trapLimit > 0)

@@ -108,10 +108,6 @@ datablock ShapeBaseImageData(mine_tripImage : mine_impactImage)
 	weaponReserveMax = $Pref::XMines::mineMax;
 };
 
-registerDataPref("Default Reserve Laser Tripmines", "Laser Tripmines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_tripImage, weaponUseCount);
-registerDataPref("Max Reserve Laser Tripmines", "Laser Tripmines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_tripImage, weaponReserveMax);
-registerDataPref("Tripmine Laser Length", "Laser Tripmines", "Weapon_Traps", "int 0 1024", 16, false, false, mine_tripImage, tripBeamLength);
-
 function mine_tripImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
 function mine_tripImage::onChargeStop(%this, %obj, %slot) { %this.onFire(%obj, %slot); }

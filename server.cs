@@ -30,6 +30,36 @@ exec("./Weapon_IncenMine.cs");
 exec("./Weapon_ElectroMine.cs");
 exec("./Weapon_DoorMine.cs");
 
+registerDataPref("Default Reserve Anti-Tank Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_tankImage, weaponUseCount);
+registerDataPref("Max Reserve Anti-Tank Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_tankImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Blast Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_impactImage, weaponUseCount);
+registerDataPref("Max Reserve Blast Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_impactImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Claymores", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_claymoreImage, weaponUseCount);
+registerDataPref("Max Reserve Claymores", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_claymoreImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Door Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_DoorImage, weaponUseCount);
+registerDataPref("Max Reserve Door Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_DoorImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Electric Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_ElectroImage, weaponUseCount);
+registerDataPref("Max Reserve Electric Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_ElectroImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Incendiary Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_IncendiaryImage, weaponUseCount);
+registerDataPref("Max Reserve Incendiary Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_IncendiaryImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Laser Tripmines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_tripImage, weaponUseCount);
+registerDataPref("Max Reserve Laser Tripmines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_tripImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Proxy Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_proxyImage, weaponUseCount);
+registerDataPref("Max Reserve Proxy Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_proxyImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Stealth Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_stealthImage, weaponUseCount);
+registerDataPref("Max Reserve Stealth Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_stealthImage, weaponReserveMax);
+
+registerDataPref("Tripmine Laser Length", "Laser Tripmines", "Weapon_Traps", "int 0 1024", 16, false, false, mine_tripImage, tripBeamLength);
+registerDataPref("Stealth Mine Opacity", "Stealth Mines", "Weapon_Traps", "int 0 100", 7, false, false, mine_stealthChargeShape, opacity);
+
 // todo:
 // * concussion blast + proxy
 // * impulse proxy

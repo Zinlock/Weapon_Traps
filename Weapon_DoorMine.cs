@@ -98,9 +98,6 @@ datablock ShapeBaseImageData(mine_DoorImage : mine_impactImage)
 	weaponReserveMax = 2;
 };
 
-registerDataPref("Default Reserve Door Mines", "Door Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_DoorImage, weaponUseCount);
-registerDataPref("Max Reserve Door Mines", "Door Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_DoorImage, weaponReserveMax);
-
 function mine_DoorImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
 function mine_DoorImage::onChargeStop(%this, %obj, %slot) { %this.onFire(%obj, %slot); }

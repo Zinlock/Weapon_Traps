@@ -44,9 +44,6 @@ datablock ShapeBaseImageData(mine_IncendiaryImage : mine_impactImage)
 	weaponReserveMax = 2;
 };
 
-registerDataPref("Default Reserve Incendiary Mines", "Incendiary Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_IncendiaryImage, weaponUseCount);
-registerDataPref("Max Reserve Incendiary Mines", "Incendiary Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_IncendiaryImage, weaponReserveMax);
-
 function mine_IncendiaryImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
 function mine_IncendiaryImage::onChargeStop(%this, %obj, %slot) { %this.onFire(%obj, %slot); }
