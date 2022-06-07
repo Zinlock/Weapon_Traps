@@ -50,6 +50,9 @@ datablock ShapeBaseImageData(mine_proxyImage : mine_impactImage)
 	weaponReserveMax = 2;
 };
 
+registerDataPref("Default Reserve Proxy Mines", "Proxy Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_proxyImage, weaponUseCount);
+registerDataPref("Max Reserve Proxy Mines", "Proxy Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_proxyImage, weaponReserveMax);
+
 function mine_proxyImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
 function mine_proxyImage::onChargeStop(%this, %obj, %slot) { %this.onFire(%obj, %slot); }

@@ -44,6 +44,9 @@ datablock ShapeBaseImageData(mine_ElectroImage : mine_impactImage)
 	weaponReserveMax = 2;
 };
 
+registerDataPref("Default Reserve Electric Mines", "Electric Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_ElectroImage, weaponUseCount);
+registerDataPref("Max Reserve Electric Mines", "Electric Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_ElectroImage, weaponReserveMax);
+
 function mine_ElectroImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
 function mine_ElectroImage::onChargeStop(%this, %obj, %slot) { %this.onFire(%obj, %slot); }

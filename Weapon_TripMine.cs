@@ -54,7 +54,7 @@ datablock ExplosionData(mine_tripExplosion : grenade_remoteChargeExplosion)
 
 	damageRadius = 28; // doesn't actually deal damage over 28 units,
 	blastRadius = 8;	// this is the real blast radius applied around the tripmine's beam in a pill shape instead of a sphere
-	radiusDamage = 110;
+	radiusDamage = 150;
 };
 
 datablock ProjectileData(mine_tripBlastProjectile)
@@ -105,8 +105,12 @@ datablock ShapeBaseImageData(mine_tripImage : mine_impactImage)
 	colorShiftColor = mine_tripItem.colorShiftColor;
 
 	weaponUseCount = 1;
-	weaponReserveMax = 2;
+	weaponReserveMax = $Pref::XMines::mineMax;
 };
+
+registerDataPref("Default Reserve Laser Tripmines", "Laser Tripmines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_tripImage, weaponUseCount);
+registerDataPref("Max Reserve Laser Tripmines", "Laser Tripmines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_tripImage, weaponReserveMax);
+registerDataPref("Tripmine Laser Length", "Laser Tripmines", "Weapon_Traps", "int 0 1024", 16, false, false, mine_tripImage, tripBeamLength);
 
 function mine_tripImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
@@ -181,9 +185,12 @@ function mine_tripBlastProjectile::radiusDamage(%this, %obj, %col, %distanceFact
 
 	%isPlayer = %col.getType() & $TypeMasks::PlayerObjectType;
 
+	%vec = vectorNormalize(%obj.getVelocity());
 	%point = (%isPlayer ? %col.getHackPosition() : %col.getWorldBoxCenter());
-	%end = vectorAdd(%pos, getWord(%obj.sourceShape.beam.getScale(), 2));
+	%end = vectorAdd(%pos, vectorScale(%vec, getWord(%obj.sourceShape.beam.getScale(), 2)));
 	%near = nearestLinePointClamped(%point, %pos, %end);
+
+	talk(vectorDist(%pos, %near));
 
 	%damageAmt *= mClampF(1 - (vectorDist(%point, %near) / %this.explosion.blastRadius), 0, 1);
 
@@ -209,11 +216,9 @@ function StaticShape::TripmineBeamLoop(%obj) // I honestly don't know why I'm us
 
 	%pos = %obj.getPosition();
 
-	%ray = containerRayCast(%pos, vectorAdd(%pos, vectorScale(%obj.getUpVector(), %obj.beamLength)), $TypeMasks::FxBrickObjectType | $TypeMasks::StaticObjectType | $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType, %obj);
+	%ray = containerRayCast(%pos, vectorAdd(%pos, vectorScale(%obj.getUpVector(), %obj.beamLength)), $TypeMasks::FxBrickObjectType | $TypeMasks::StaticObjectType, %obj);
 
-	if(!%ray)
-		return %obj.schedule(0, mineExplode);
-	else if(!(%ray.getType() & ($TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType)) || !mineCanTrigger(%obj.client, %ray))
+	if(%ray)
 	{
 		%dist = vectorDist(%obj.getPosition(), posFromRaycast(%ray));
 		%obj.beam.setScale("0.5 0.5 " @ %dist);
@@ -222,6 +227,13 @@ function StaticShape::TripmineBeamLoop(%obj) // I honestly don't know why I'm us
 		%rot = getWords(%obj.trigger.getTransform(), 3, 6);
 
 		%obj.trigger.setTransform(vectorAdd(%obj.getPosition(), vectorScale(%obj.getUpVector(), %dist / 2)) SPC %rot);
+	}
+	else
+	{
+		%obj.trigger.triggered = true;
+		%obj.schedule(%obj.trigger.delay, mineExplode, %obj.trigger.explosionScale, vectorScale(%obj.getUpVector(), %obj.trigger.explosionOffset));
+		serverPlay3D(%obj.trigger.sound, %trigger.getPosition());
+		return;
 	}
 
 	%obj.beamloop = %obj.schedule(128, TripmineBeamLoop);

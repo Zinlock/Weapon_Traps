@@ -2,6 +2,7 @@ datablock StaticShapeData(mine_stealthChargeShape : mine_impactChargeShape)
 {
 	shapeFile = "./dts/mineAntiPersonnel.dts";
 	health = 30;
+	opacity = 7;
 };
 
 datablock ItemData(mine_stealthItem : mine_impactItem)
@@ -27,7 +28,7 @@ datablock ShapeBaseImageData(mine_stealthImage : mine_impactImage)
 	mineCanRecover = true;
 	
 	mineMinSlope = 0;
-	mineMaxSlope = 100;
+	mineMaxSlope = 70;
 	mineDeploySound = mine_deploySound;
 	mineDeployDistance = 5;
 
@@ -37,6 +38,10 @@ datablock ShapeBaseImageData(mine_stealthImage : mine_impactImage)
 	weaponUseCount = 1;
 	weaponReserveMax = 2;
 };
+
+registerDataPref("Default Reserve Stealth Mines", "Stealth Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_stealthImage, weaponUseCount);
+registerDataPref("Max Reserve Stealth Mines", "Stealth Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_stealthImage, weaponReserveMax);
+registerDataPref("Stealth Mine Opacity", "Stealth Mines", "Weapon_Traps", "int 0 100", 7, false, false, mine_stealthChargeShape, opacity);
 
 function mine_stealthImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
@@ -51,13 +56,13 @@ function mine_stealthChargeShape::onAdd(%data, %obj)
 	mine_impactChargeShape::onAdd(%data, %obj);
 
 	%obj.startFade(1,0,1);
-	%s = %obj.schedule(%data.deployTime, setNodeColor, "ALL", vectorScale(groundPlane.color, 1/255) SPC "0.07");
+	%s = %obj.schedule(%data.deployTime, setNodeColor, "ALL", vectorScale(groundPlane.color, 1/255) SPC %data.opacity / 100);
 
 	initContainerRadiusSearch(%obj.getPosition(), 0.1, $TypeMasks::FxBrickObjectType);
 	if(isObject(%brk = ContainerSearchNext()))
 	{
 		cancel(%s);
-		%obj.schedule(%data.deployTime, setNodeColor, "ALL", getWords(getColorIdTable(%brk.getColorId()), 0, 2) SPC "0.07");
+		%obj.schedule(%data.deployTime, setNodeColor, "ALL", getWords(getColorIdTable(%brk.getColorId()), 0, 2) SPC %data.opacity / 100);
 	}
 }
 

@@ -128,7 +128,7 @@ datablock ShapeBaseImageData(mine_impactImage)
 	mineCanRecover = true;
 
 	mineMinSlope = 0;
-	mineMaxSlope = 60;
+	mineMaxSlope = 70;
 	mineDeploySound = mine_deploySound;
 	mineDeployDistance = 5;
 
@@ -154,6 +154,9 @@ datablock ShapeBaseImageData(mine_impactImage)
 	stateWaitForTimeout[3] = true;
 };
 
+registerDataPref("Default Reserve Blast Mines", "Blast Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_impactImage, weaponUseCount);
+registerDataPref("Max Reserve Blast Mines", "Blast Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_impactImage, weaponReserveMax);
+
 function mine_impactImage::onReady(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
@@ -162,7 +165,7 @@ function mine_impactImage::onReady(%this, %obj, %slot)
 	if(isObject(%trapSet = %obj.client.trapSet))
 	{
 		if(%trapSet.getCount() >= $Pref::XMines::trapLimit && $Pref::XMines::trapLimit > 0)
-			%obj.client.centerPrint("<font:arial:14>\c5 You already have " @ %trapSet.getCount() @ " active traps!<br>\c5Placing new ones will automatically discard old ones.", 3);
+			%obj.client.centerPrint("<font:arial:14>\c5 You already have " @ %trapSet.getCount() @ " active trap" @ (%trapSet.getCount() == 1 ? "" : "s") @ "!<br>\c5Placing new ones will automatically discard old ones.", 3);
 	}
 }
 

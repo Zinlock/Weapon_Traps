@@ -98,7 +98,6 @@ function StaticShape::mineDropItem(%obj, %off, %vel)
 		%itm = new Item()
 		{
 			dataBlock = %obj.recoverItem;
-			weaponCharges = %obj.recoverCharges;
 			position = vectorAdd(%obj.getPosition(), vectorScale(%obj.getUpVector(), %off));
 			canPickup = true;
 			static = false;
@@ -109,6 +108,7 @@ function StaticShape::mineDropItem(%obj, %off, %vel)
 		%itm.setCollisionTimeout(%obj.client.Player);
 		%itm.schedulePop();
 		%itm.setVelocity(vectorScale(%obj.getUpVector(), %vel));
+		%itm.weaponCharges = (%obj.recoverCharges !$= "" ? %obj.recoverCharges : 1);
 
 		%obj.delete();
 	}

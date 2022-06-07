@@ -70,6 +70,9 @@ datablock ShapeBaseImageData(mine_tankImage : mine_impactImage)
 	weaponReserveMax = 2;
 };
 
+registerDataPref("Default Reserve Anti-Tank Mines", "Anti-Tank Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_tankImage, weaponUseCount);
+registerDataPref("Max Reserve Anti-Tank Mines", "Anti-Tank Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_tankImage, weaponReserveMax);
+
 function mine_tankImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
 function mine_tankImage::onChargeStop(%this, %obj, %slot) { %this.onFire(%obj, %slot); }

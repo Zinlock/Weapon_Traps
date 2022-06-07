@@ -97,6 +97,9 @@ datablock ShapeBaseImageData(mine_claymoreImage : mine_impactImage)
 	weaponReserveMax = 2;
 };
 
+registerDataPref("Default Reserve Claymores", "Claymores", "Weapon_Traps", "int 0 1000", 1, false, false, mine_claymoreImage, weaponUseCount);
+registerDataPref("Max Reserve Claymores", "Claymores", "Weapon_Traps", "int 0 1000", 2, false, false, mine_claymoreImage, weaponReserveMax);
+
 function mine_claymoreImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
 
 function mine_claymoreImage::onChargeStop(%this, %obj, %slot) { %this.onFire(%obj, %slot); }
