@@ -157,16 +157,30 @@ datablock ShapeBaseImageData(mine_impactImage)
 registerDataPref("Default Reserve Blast Mines", "Blast Mines", "Weapon_Traps", "int 0 1000", 1, false, false, mine_impactImage, weaponUseCount);
 registerDataPref("Max Reserve Blast Mines", "Blast Mines", "Weapon_Traps", "int 0 1000", 2, false, false, mine_impactImage, weaponReserveMax);
 
+function Player::doMineAmmoText(%pl)
+{
+	if($Pref::XMines::trapLimit > 0)
+		%pl.ammoText = "<spush><font:arial bold:16>TRAPS <spop>" @ %pl.client.trapSet.getCount() @ "/" @ $Pref::XMines::trapLimit;
+	else
+		%pl.ammoText = "";
+}
+
 function mine_impactImage::onReady(%this, %obj, %slot)
 {
 	%obj.playThread(1, root);
 	%obj.weaponAmmoStart();
 	
-	if(isObject(%trapSet = %obj.client.trapSet))
+	%trapSet = %obj.client.trapSet;
+	if(!isObject(%trapSet))
 	{
-		if(%trapSet.getCount() >= $Pref::XMines::trapLimit && $Pref::XMines::trapLimit > 0)
-			%obj.client.centerPrint("<font:arial:14>\c5 You already have " @ %trapSet.getCount() @ " active trap" @ (%trapSet.getCount() == 1 ? "" : "s") @ "!<br>\c5Placing new ones will automatically discard old ones.", 3);
+		%trapSet = new SimSet();
+		%obj.client.trapSet = %trapSet;
 	}
+
+	if(%trapSet.getCount() >= $Pref::XMines::trapLimit && $Pref::XMines::trapLimit > 0)
+		%obj.client.centerPrint("<font:arial:14>\c5 You already have " @ %trapSet.getCount() @ " active trap" @ (%trapSet.getCount() == 1 ? "" : "s") @ "!<br>\c5Placing new ones will automatically discard old ones.", 3);
+	
+	%obj.doMineAmmoText();
 }
 
 function mine_impactImage::onChargeStop(%this, %obj, %slot) { %this.onFire(%obj, %slot); }
@@ -240,6 +254,8 @@ function mine_impactImage::onFire(%this, %obj, %slot)
 		}
 		else %this.onMineFailed(%obj, %slot, %end);
 	}
+
+	%obj.doMineAmmoText();
 }
 
 function mine_impactChargeShape::onAdd(%data, %obj)
