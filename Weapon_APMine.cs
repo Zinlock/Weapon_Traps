@@ -296,6 +296,8 @@ function mine_impactChargeShape::onAdd(%data, %obj)
 
 	if(%data.dropOnDetach || %data.explodeOnDetach)
 		%obj.schedule(0, mineDetachLoop);
+	
+	schedule(%data.deployTime, %obj, triggerFix, %obj.getPosition(), getMax(vectorLen(%trig.getScale()), %data.triggerDistance));
 }
 
 function mine_impactChargeShape::onRemove(%data, %obj)
