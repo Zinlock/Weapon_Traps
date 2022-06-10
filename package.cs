@@ -2,7 +2,7 @@ package TrapWeaponPackage
 {
 	function ProjectileData::onCollision(%this, %obj, %col, %fade, %pos, %normal, %velocity)
 	{
-		if(isObject(%col) && %col.IsA("StaticShape") && %col.isLandMine && (%db = %col.getDatablock()).health > 0 && (mineCanTrigger(%obj) || %obj.client == %col.client || minigameCanDamage(%obj.client, %col) == 1))
+		if(isObject(%col) && %col.IsA("StaticShape") && %col.isLandMine && (%db = %col.getDatablock()).health > 0 && (mineCanTrigger(%col, %obj) || %obj.client == %col.client || minigameCanDamage(%obj.client, %col) == 1))
 		{
 			%dmg = %this.directDamage * %db.directMult;
 			%col.mineDamage(%dmg);
@@ -16,7 +16,7 @@ package TrapWeaponPackage
 		initContainerRadiusSearch(%pos, %this.explosion.damageRadius, $TypeMasks::StaticObjectType);
 		while(isObject(%col = ContainerSearchNext()))
 		{
-			if(%col.isLandMine && (%db = %col.getDatablock()).health > 0 && checkLOS(%pos, %col, %obj.sourceShape) && (mineCanTrigger(%obj) || %obj.client == %col.client || minigameCanDamage(%obj.client, %col) == 1))
+			if(%col.isLandMine && (%db = %col.getDatablock()).health > 0 && checkLOS(%pos, %col, %obj.sourceShape) && (mineCanTrigger(%col, %obj) || %obj.client == %col.client || minigameCanDamage(%obj.client, %col) == 1))
 			{
 				%dmg = %this.explosion.radiusDamage * (1 - vectorDist(%pos, %col.getPosition()) / %this.explosion.damageRadius) * %db.radiusMult;
 				%col.schedule(getRandom(300), mineDamage, %dmg);
