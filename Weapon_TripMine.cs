@@ -186,8 +186,6 @@ function mine_tripBlastProjectile::radiusDamage(%this, %obj, %col, %distanceFact
 	%end = vectorAdd(%pos, vectorScale(%vec, getWord(%obj.sourceShape.beam.getScale(), 2)));
 	%near = nearestLinePointClamped(%point, %pos, %end);
 
-	talk(vectorDist(%pos, %near));
-
 	%damageAmt *= mClampF(1 - (vectorDist(%point, %near) / %this.explosion.blastRadius), 0, 1);
 
 	if(%damageAmt && (checkLOS(%near, %col, %obj.sourceShape) || checkLOS(%pos, %col, %obj.sourceShape)))
