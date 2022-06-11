@@ -179,25 +179,31 @@ function mineCanTrigger(%src, %col)
 
 function checkLOS(%pos, %col, %ex0, %ex1, %ex2, %ex3)
 {
+	//%mask = $TypeMasks::FxBrickObjectType | $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType | $TypeMasks::StaticObjectType;
+	%mask = $TypeMasks::FxBrickObjectType | $TypeMasks::StaticObjectType;
+	checkLOSMask(%pos, %col, %mask, %ex0, %ex1, %ex2, %ex3);
+}
+
+function checkLOSMask(%pos, %col, %mask, %ex0, %ex1, %ex2, %ex3)
+{
 	if(isObject(%col))
 	{
-		%mask = $TypeMasks::FxBrickObjectType | $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType | $TypeMasks::StaticObjectType;
 		%type = %col.getType();
 
 		if(%type & $TypeMasks::PlayerObjectType)
 		{
 			%ray = containerRayCast(%pos, %col.getEyePoint(), %mask, %ex0, %ex1, %ex2, %ex3);
-			if(isObject(%ray) && %ray == %col)
+			if(!isObject(%ray) || %ray == %col)
 				return 1;
 			else
 			{
 				%ray = containerRayCast(%pos, %col.getHackPosition(), %mask, %ex0, %ex1, %ex2, %ex3);
-				if(isObject(%ray) && %ray == %col)
+				if(!isObject(%ray) || %ray == %col)
 					return 1;
 				else
 				{
 					%ray = containerRayCast(%pos, %col.getPosition(), %mask, %ex0, %ex1, %ex2, %ex3);
-					if(isObject(%ray) && %ray == %col)
+					if(!isObject(%ray) || %ray == %col)
 						return 1;
 				}
 			}
@@ -205,7 +211,7 @@ function checkLOS(%pos, %col, %ex0, %ex1, %ex2, %ex3)
 		else if(%type & $TypeMasks::VehicleObjectType | $TypeMasks::StaticObjectType | $TypeMasks::FxBrickObjectType)
 		{
 			%ray = containerRayCast(%pos, %col.getWorldBoxCenter(), %mask, %ex0, %ex1, %ex2, %ex3);
-			if(isObject(%ray) && %ray == %col)
+			if(!isObject(%ray) || %ray == %col)
 				return 1;
 		}
 		else return 1;
