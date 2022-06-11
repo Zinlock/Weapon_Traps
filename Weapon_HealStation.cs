@@ -156,9 +156,11 @@ datablock ShapeBaseImageData(trap_healthImage : mine_impactImage)
 	weaponUseCount = 1;
 	weaponReserveMax = 1;
 
-	tickHeal = 3;
+	tickHeal = 1.5;
 	timeout = 0;
 	healthCharge = 0;
+	healthStack = 0;
+	healthTeam = 0;
 };
 
 function trap_healthImage::onReady(%this, %obj, %slot) { mine_impactImage::onReady(%this, %obj, %slot); }
@@ -288,40 +290,48 @@ function trap_healthEnter(%trigger, %hit)
 	
 	if(!checkLOS(%trigger.sourceShape.getWorldBoxCenter(), %hit, %trigger.sourceShape))
 		return;
-	
+
 	if(minigameCanDamage(%trigger.sourceClient, %hit) != -1)
 	{
-		if(%hit.getDamageLevel() > 0 && (%hit.healthTrigger == %trigger || !isObject(%hit.healthTrigger)))
+		if(trap_healthImage.healthTeam || !mineCanTrigger(%trigger.sourceClient, %hit))
 		{
-			if(%hit.healthTrigger != %trigger)
+			if(%hit.getDamageLevel() > 0 && (%hit.healthTrigger == %trigger || !isObject(%hit.healthTrigger) || trap_healthImage.healthStack))
 			{
-				%hit.healthTrigger = %trigger;
-				serverPlay3D(mine_triggerHealthSound, %hit.getHackPosition());
+				if(!isObject(%hit.mollyTarget) && !isObject(%hit.dynamiteTarget))
+				{
+					if(%hit.healthTrigger != %trigger || (%hit.getDamageLevel() > %hit.lastdmg && !isEventPending(%hit.afterburn)))
+					{
+						if(!isObject(%hit.healthTrigger))
+							%hit.healthTrigger = %trigger;
+						
+						if(%hit.healthTrigger == %trigger)
+							serverPlay3D(mine_triggerHealthSound, %hit.getHackPosition());
+					}
+
+					%hit.setWhiteOut(getMax(0.1, %hit.getWhiteOut()));
+					%heal = trap_healthImage.tickHeal / 2;
+				
+					if(trap_healthImage.healthCharge > 0 && %trigger.sourceShape.healthCharge > 0)
+					{
+						%dmg = %hit.getDamageLevel();
+
+						if(%heal > %dmg)
+							%heal = %dmg;
+
+						%hit.setDamageLevel(%hit.getDamageLevel() - %heal);
+						%trigger.sourceShape.healthCharge -= %heal;
+
+						if(%trigger.sourceShape.healthCharge <= 0)
+							%trigger.sourceShape.healthStationDestroy();
+
+						%trigger.sourceShape.setShapeName(mCeil(%trigger.sourceShape.healthCharge) @ " hp");
+					}
+					else
+						%hit.setDamageLevel(%hit.getDamageLevel() - trap_healthImage.tickHeal / 2);
+					
+					%hit.lastdmg = %hit.getDamageLevel();
+				}
 			}
-
-			%hit.setWhiteOut(getMax(0.1, %hit.getWhiteOut()));
-			%heal = trap_healthImage.tickHeal / 2;
-
-			if(isObject(%hit.mollyTarget) || isObject(%hit.dynamiteTarget))
-				%heal /= 1.3;
-			
-			if(trap_healthImage.healthCharge > 0 && %trigger.sourceShape.healthCharge > 0)
-			{
-				%dmg = %hit.getDamageLevel();
-
-				if(%heal > %dmg)
-					%heal = %dmg;
-
-				%hit.setDamageLevel(%hit.getDamageLevel() - %heal);
-				%trigger.sourceShape.healthCharge -= %heal;
-
-				if(%trigger.sourceShape.healthCharge <= 0)
-					%trigger.sourceShape.healthStationDestroy();
-
-				%trigger.sourceShape.setShapeName(mCeil(%trigger.sourceShape.healthCharge) @ " hp");
-			}
-			else
-				%hit.setDamageLevel(%hit.getDamageLevel() - trap_healthImage.tickHeal / 2);
 		}
 	}
 }

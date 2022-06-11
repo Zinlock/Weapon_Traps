@@ -58,10 +58,12 @@ registerDataPref("Max Reserve Proxy Mines", "Ammo", "Weapon_Traps", "int 0 1000"
 registerDataPref("Default Reserve Stealth Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_stealthImage, weaponUseCount);
 registerDataPref("Max Reserve Stealth Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_stealthImage, weaponReserveMax);
 
-registerDataPref("Health Regen (3)", "Health Stations", "Weapon_Traps", "int 0 1000", 3, false, false, trap_healthImage, tickHeal);
+registerDataPref("Health Regen (1.5)", "Health Stations", "Weapon_Traps", "int 0 1000", 1.5, false, false, trap_healthImage, tickHeal);
 registerDataPref("Max Health Regen (0)", "Health Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_healthImage, healthCharge);
 registerDataPref("Despawn Time (0s)", "Health Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_healthImage, timeout);
 registerDataPref("Can Recover (Y)", "Health Stations", "Weapon_Traps", "bool", 1, false, false, trap_healthImage, mineCanRecover);
+registerDataPref("Can Stack Healing (N)", "Health Stations", "Weapon_Traps", "bool", 0, false, false, trap_healthImage, healthStack);
+registerDataPref("Can Heal Enemies (N)", "Health Stations", "Weapon_Traps", "bool", 0, false, false, trap_healthImage, healthTeam);
 
 registerDataPref("Tripmine Laser Length (16u)", "Laser Tripmines", "Weapon_Traps", "int 0 1024", 16, false, false, mine_tripImage, tripBeamLength);
 
