@@ -59,13 +59,14 @@ function customTrigger128::onTickCheck(%db, %trig)
 {
 	cancel(%trig.triggerLoop);
 
-	if(isFunction(%trig.tickCallback))
+	%cts = %trig.getNumObjects();
+
+	if(isFunction(%trig.tickCallback) && %cts > 0)
 	{
-		%cts = %trig.getNumObjects();
-		
 		for(%i = 0; %i < %cts; %i++)
 			call(%trig.tickCallback, %trig, %trig.getObject(%i));
 	}
+	else return;
 
 	%trig.triggerLoop = %db.schedule(%db.tickPeriodMS, onTickCheck, %trig);
 }
@@ -86,6 +87,7 @@ function customTickTrigger128::onTickCheck(%db, %trig)
 
 	if(isFunction(%trig.tickCallback) && %trig.getNumObjects() > 0)
 		call(%trig.tickCallback, %trig);
+	else return;
 
 	%trig.triggerLoop = %db.schedule(%db.tickPeriodMS, onTickCheck, %trig);
 }
