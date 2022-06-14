@@ -3,7 +3,6 @@ datablock StaticShapeData(mine_claymoreChargeShape : mine_impactChargeShape)
 	shapeFile = "./dts/mineClaymore.dts";
 	health = 30;
 
-	explodeOnDetach = true;
 	explosionForward = true;
 
 	triggerSound = mine_triggerClaymoreSound;

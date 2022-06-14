@@ -5,8 +5,6 @@ datablock StaticShapeData(mine_tripChargeShape : mine_impactChargeShape)
 	shapeFile = "./dts/mineTrip.dts";
 	health = 45;
 
-	explodeOnDetach = true;
-
 	delayCleanup = true;
 
 	triggerDelay = 225;

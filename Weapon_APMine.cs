@@ -11,8 +11,8 @@ datablock StaticShapeData(mine_impactChargeShape)
 	directMult = 1;
 	radiusMult = 1;
 	explodeOnDeath = true;
-	explodeOnDetach = false; // blow up...
-	dropOnDetach = true; // ...or drop the mine when it is no longer stuck to a surface
+	explodeOnDetach = true; // blow up...
+	dropOnDetach = false; // ...or drop the mine when it is no longer stuck to a surface
 
 	explosionScale = 1;
 	explosionForward = false;

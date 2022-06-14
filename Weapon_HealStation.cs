@@ -9,7 +9,7 @@ datablock StaticShapeData(trap_healthChargeShape : mine_impactChargeShape)
 	radiusMult = 1.4;
 	explodeOnDeath = true;
 	explodeOnDetach = false;
-	dropOnDetach = false;
+	dropOnDetach = true;
 
 	explosionScale = 1;
 	explosionForward = false;
