@@ -210,7 +210,7 @@ function trap_healthImage::onMinePlaced(%this, %obj, %slot, %mine)
 	};
 	%node.setTransform("0 0 -12");
 	%node.setColor(%color);
-	%node.schedule(2499, setTransform, vectorAdd(%mine.getPosition(), "0 0 0.65") SPC "1 0 0 " @ $pi/2);
+	%node.schedule(2499, setTransform, vectorAdd(%mine.getPosition(), vectorScale(%mine.getUpVector(), 0.65)));
 	%node.schedule(2500, inspectPostApply);
 	%mine.fxNodeA = %node;
 	
@@ -222,7 +222,7 @@ function trap_healthImage::onMinePlaced(%this, %obj, %slot, %mine)
 	};
 	%node.setTransform("0 0 -12");
 	%node.setColor(%color);
-	%node.schedule(2499, setTransform, vectorAdd(%mine.getPosition(), "0 0 0.7") SPC "0 0 0 1");
+	%node.schedule(2499, setTransform, vectorAdd(%mine.getPosition(), vectorScale(%mine.getUpVector(), 0.65)));
 	%node.schedule(2500, inspectPostApply);
 	%mine.fxNodeB = %node;
 }
