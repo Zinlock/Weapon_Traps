@@ -123,7 +123,7 @@ datablock ItemData(trap_healthItem : mine_impactItem)
 	shapeFile = "./dts/healStationImage.dts";
 
 	uiName = "[T] Health Station";
-	iconName = "./ico/HEALSTATION";
+	iconName = "./ico/HEALTH";
 
 	doColorShift = true;
 	colorShiftColor = "0.1 0.1 0.1 1.0";
