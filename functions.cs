@@ -21,6 +21,7 @@ function WeaponImage::minePlaceCheck(%this, %obj, %slot, %ray)
 
 	return 1;
 }
+
 function WeaponImage::onMinePlaced(%this, %obj, %slot, %mine) { }
 function WeaponImage::onMineFailed(%this, %obj, %slot, %pos) { }
 

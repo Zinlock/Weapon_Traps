@@ -4,14 +4,16 @@ if(ForceRequiredAddOn("Weapon_Grenades") == $Error::AddOn_NotFound)
 if ($RTB::Hooks::ServerControl)
 {
 	RTB_registerPref("Max Player Traps", "Traps", "$Pref::XMines::trapLimit", "int 0 1000", "Weapon_Traps", 4, false, false, "");
-	RTB_registerPref("Allow Stacking Mines", "Traps", "$Pref::XMines::mineStack", "bool", "Weapon_Traps", 0, false, false, "");
-	RTB_registerPref("Allow Floating Mines", "Traps", "$Pref::XMines::mineFloat", "bool", "Weapon_Traps", 0, false, false, "");
+	RTB_registerPref("Allow Stacking Traps", "Traps", "$Pref::XMines::mineStack", "bool", "Weapon_Traps", 0, false, false, "");
+	RTB_registerPref("Allow Floating Traps", "Traps", "$Pref::XMines::mineFloat", "bool", "Weapon_Traps", 0, false, false, "");
+	RTB_registerPref("Clear Traps on Death", "Traps", "$Pref::XMines::mineClear", "bool", "Weapon_Traps", 0, false, false, "");
 }
 else
 {
 	if ($Pref::XMines::trapLimit $= "") $Pref::XMines::trapLimit = 4;
 	if ($Pref::XMines::mineStack $= "") $Pref::XMines::mineStack = 0;
 	if ($Pref::XMines::mineFloat $= "") $Pref::XMines::mineFloat = 0;
+	if ($Pref::XMines::mineClear $= "") $Pref::XMines::mineClear = 0;
 }
 
 $trapTriggerDebug = false;

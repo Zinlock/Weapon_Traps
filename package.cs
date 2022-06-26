@@ -39,6 +39,14 @@ package TrapWeaponPackage
 
 		Parent::onDrop(%cl, %msg);
 	}
+
+	function GameConnection::spawnPlayer(%cl, %a, %b, %c)
+	{
+		Parent::spawnPlayer(%cl, %a, %b, %c);
+
+		if(isObject(%pl = %cl.Player) && isObject(%cl.trapSet) && $Pref::XMines::mineClear)
+			%cl.trapSet.deleteAll();
+	}
 	
 	function Player::activateStuff(%pl)
 	{
