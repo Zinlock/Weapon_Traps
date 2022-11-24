@@ -1,7 +1,5 @@
 datablock StaticShapeData(mine_impactChargeShape)
 {
-	dynamicType = $TypeMasks::TerrainObjectType; // i forgot to let aebase guns hit static shapes so.  Oops
-
 	shapeFile = "./dts/mineAntiPersonnel.dts";
 	isLandMineData = true;
 
