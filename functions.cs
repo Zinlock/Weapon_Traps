@@ -149,6 +149,9 @@ function mineCanTrigger(%src, %col)
 	if(isObject(%src.client))
 		%src = %src.client;
 
+	if(%col.getDataBlock().isTurretArmor)
+		return 0;
+
 	if(%col.getType() & $TypeMasks::VehicleObjectType)
 	{
 		if(isObject(%con = %col.getControllingObject()))
