@@ -18,7 +18,7 @@ datablock ExplosionData(mine_tankExplosion : grenade_concussionExplosion)
 	impulseForce = 3500;
 
 	damageRadius = 11;
-	radiusDamage = 310;
+	radiusDamage = 400;
 };
 
 datablock ProjectileData(mine_tankBlastProjectile)
@@ -101,6 +101,6 @@ function mine_tankBlastProjectile::radiusDamage(%this, %obj, %col, %distanceFact
 		if(%col.getType() & ($TypeMasks::VehicleObjectType))
 			%col.damage(%obj, %pos, %damageAmt, %damageType);
 		else
-			%col.damage(%obj, %pos, %damageAmt / 4, %damageType);
+			%col.damage(%obj, %pos, %damageAmt / 5, %damageType);
 	}
 }
