@@ -32,9 +32,13 @@ exec("./Weapon_Claymore.cs");
 exec("./Weapon_IncenMine.cs");
 exec("./Weapon_ElectroMine.cs");
 exec("./Weapon_HealStation.cs");
+exec("./Weapon_BearTrap.cs");
 
 registerDataPref("Default Reserve Anti-Tank Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_tankImage, weaponUseCount);
 registerDataPref("Max Reserve Anti-Tank Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_tankImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Bear Traps", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_bearImage, weaponUseCount);
+registerDataPref("Max Reserve Bear Traps", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_bearImage, weaponReserveMax);
 
 registerDataPref("Default Reserve Blast Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_impactImage, weaponUseCount);
 registerDataPref("Max Reserve Blast Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_impactImage, weaponReserveMax);
@@ -60,7 +64,12 @@ registerDataPref("Max Reserve Proxy Mines", "Ammo", "Weapon_Traps", "int 0 1000"
 registerDataPref("Default Reserve Stealth Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_stealthImage, weaponUseCount);
 registerDataPref("Max Reserve Stealth Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_stealthImage, weaponReserveMax);
 
-registerDataPref("Health Regen (1.5)", "Health Stations", "Weapon_Traps", "int 0 1000", 1.5, false, false, trap_healthImage, tickHeal);
+registerDataPref("Damage (25)", "Bear Traps", "Weapon_Traps", "int 0 1000", 25, false, false, mine_bearImage, damage);
+registerDataPref("Escape Velocity (20)", "Bear Traps", "Weapon_Traps", "int 0 200", 20, false, false, mine_bearImage, escapeVelocity);
+registerDataPref("Escape Damage (25)", "Bear Traps", "Weapon_Traps", "int 0 1000", 25, false, false, mine_bearImage, escapeDamage);
+registerDataPref("Stun Time (2s)", "Bear Traps", "Weapon_Traps", "num 0 300", 2, false, false, mine_bearImage, stunTime);
+
+registerDataPref("Health Regen (1.5)", "Health Stations", "Weapon_Traps", "num 0 1000", 1.5, false, false, trap_healthImage, tickHeal);
 registerDataPref("Max Health Regen (0)", "Health Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_healthImage, healthCharge);
 registerDataPref("Despawn Time (0s)", "Health Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_healthImage, timeout);
 registerDataPref("Can Recover (Y)", "Health Stations", "Weapon_Traps", "bool", 1, false, false, trap_healthImage, mineCanRecover);
@@ -76,7 +85,6 @@ registerDataPref("Stealth Mine Opacity (7%)", "Stealth Mines", "Weapon_Traps", "
 // * impulse proxy
 // * poison spike
 // * punji spikes
-// * bear trap
 // * barbed wire
 // * spike strips
 // * bouncing betty
