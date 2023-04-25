@@ -138,3 +138,18 @@ datablock ExplosionData(mine_scrapExplosion)
 	damageRadius = 0;
 	radiusDamage = 0;
 };
+
+datablock ProjectileData(mine_scrapProjectile)
+{
+	directDamageType  = $DamageType::mineScrapDirect;
+	radiusDamageType  = $DamageType::mineScrapDirect;
+	explosion           = mine_scrapExplosion;
+
+	explodeOnDeath        = false;
+
+	armingDelay         = 5000;
+	lifetime            = 5000;
+	fadeDelay           = 5000;
+	bounceElasticity    = 0.0;
+	bounceFriction  	  = 1.0;
+};
