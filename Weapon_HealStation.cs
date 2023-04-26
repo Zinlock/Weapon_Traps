@@ -120,7 +120,7 @@ datablock AudioProfile(mine_triggerHealthSound)
 
 datablock ItemData(trap_healthItem : mine_impactItem)
 {
-	shapeFile = "./dts/healStationImage.dts";
+	shapeFile = "./dts/healStation.dts";
 
 	uiName = "[T] Health Station";
 	iconName = "./ico/HEALTH";
@@ -291,7 +291,7 @@ function trap_healthEnter(%trigger, %hit)
 	if(!checkLOS(%trigger.sourceShape.getWorldBoxCenter(), %hit, %trigger.sourceShape))
 		return;
 
-	if(minigameCanDamage(%trigger.sourceClient, %hit) != -1 && %hit.getDamagePercent() < 1.0 && !%hit.getDataBlock().isTurretArmor)
+	if(minigameCanDamage(%trigger.sourceClient, %hit) != -1 && %hit.getDamagePercent() < 1.0 && (trap_healthImage.healthTurrets || !%hit.getDataBlock().isTurretArmor))
 	{
 		if(trap_healthImage.healthTeam || !mineCanTrigger(%trigger.sourceClient, %hit))
 		{

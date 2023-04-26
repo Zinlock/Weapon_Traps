@@ -34,6 +34,7 @@ exec("./Weapon_ElectroMine.cs");
 exec("./Weapon_HealStation.cs");
 exec("./Weapon_BearTrap.cs");
 exec("./Weapon_ClusterMine.cs");
+exec("./Weapon_EnergyStation.cs"); // todo: clean this code up
 
 registerDataPref("Default Reserve Anti-Tank Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_tankImage, weaponUseCount);
 registerDataPref("Max Reserve Anti-Tank Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_tankImage, weaponReserveMax);
@@ -52,6 +53,9 @@ registerDataPref("Max Reserve Cluster Mines", "Ammo", "Weapon_Traps", "int 0 100
 
 registerDataPref("Default Reserve Electric Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_ElectroImage, weaponUseCount);
 registerDataPref("Max Reserve Electric Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_ElectroImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Energy Stations", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, trap_energyImage, weaponUseCount);
+registerDataPref("Max Reserve Energy Stations", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, trap_energyImage, weaponReserveMax);
 
 registerDataPref("Default Reserve Health Stations", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, trap_healthImage, weaponUseCount);
 registerDataPref("Max Reserve Health Stations", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, trap_healthImage, weaponReserveMax);
@@ -73,12 +77,21 @@ registerDataPref("Escape Velocity (20)", "Bear Traps", "Weapon_Traps", "int 0 20
 registerDataPref("Escape Damage (25)", "Bear Traps", "Weapon_Traps", "int 0 1000", 25, false, false, mine_bearImage, escapeDamage);
 registerDataPref("Stun Time (2s)", "Bear Traps", "Weapon_Traps", "num 0 300", 2, false, false, mine_bearImage, stunTime);
 
+registerDataPref("Energy Regen (1)", "Energy Stations", "Weapon_Traps", "num 0 1000", 1, false, false, trap_energyImage, tickHeal);
+registerDataPref("Max Energy Regen (0)", "Energy Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_energyImage, energyCharge);
+registerDataPref("Despawn Time (0s)", "Energy Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_energyImage, timeout);
+registerDataPref("Can Recover (Y)", "Energy Stations", "Weapon_Traps", "bool", 1, false, false, trap_energyImage, mineCanRecover);
+registerDataPref("Can Stack Charging (N)", "Energy Stations", "Weapon_Traps", "bool", 0, false, false, trap_energyImage, energyStack);
+registerDataPref("Can Charge Enemies (N)", "Energy Stations", "Weapon_Traps", "bool", 0, false, false, trap_energyImage, energyTeam);
+registerDataPref("Can Charge Turrets (Y)", "Energy Stations", "Weapon_Traps", "bool", 1, false, false, trap_energyImage, energyTurrets);
+
 registerDataPref("Health Regen (1.5)", "Health Stations", "Weapon_Traps", "num 0 1000", 1.5, false, false, trap_healthImage, tickHeal);
 registerDataPref("Max Health Regen (0)", "Health Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_healthImage, healthCharge);
 registerDataPref("Despawn Time (0s)", "Health Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_healthImage, timeout);
 registerDataPref("Can Recover (Y)", "Health Stations", "Weapon_Traps", "bool", 1, false, false, trap_healthImage, mineCanRecover);
 registerDataPref("Can Stack Healing (N)", "Health Stations", "Weapon_Traps", "bool", 0, false, false, trap_healthImage, healthStack);
 registerDataPref("Can Heal Enemies (N)", "Health Stations", "Weapon_Traps", "bool", 0, false, false, trap_healthImage, healthTeam);
+registerDataPref("Can Heal Turrets (N)", "Health Stations", "Weapon_Traps", "bool", 0, false, false, trap_healthImage, healthTurrets);
 
 registerDataPref("Tripmine Laser Length (16u)", "Laser Tripmines", "Weapon_Traps", "int 0 1024", 16, false, false, mine_tripImage, tripBeamLength);
 
