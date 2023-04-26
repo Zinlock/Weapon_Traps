@@ -118,7 +118,7 @@ datablock ShapeBaseImageData(trap_energyImage : mine_impactImage)
 	weaponUseCount = 1;
 	weaponReserveMax = 1;
 
-	tickenergy = 1;
+	tickenergy = 1.5;
 	timeout = 0;
 	energyCharge = 0;
 	energyStack = 0;

@@ -77,7 +77,7 @@ registerDataPref("Escape Velocity (20)", "Bear Traps", "Weapon_Traps", "int 0 20
 registerDataPref("Escape Damage (25)", "Bear Traps", "Weapon_Traps", "int 0 1000", 25, false, false, mine_bearImage, escapeDamage);
 registerDataPref("Stun Time (2s)", "Bear Traps", "Weapon_Traps", "num 0 300", 2, false, false, mine_bearImage, stunTime);
 
-registerDataPref("Energy Regen (1)", "Energy Stations", "Weapon_Traps", "num 0 1000", 1, false, false, trap_energyImage, tickHeal);
+registerDataPref("Energy Regen (1.5)", "Energy Stations", "Weapon_Traps", "num 0 1000", 1, false, false, trap_energyImage, tickHeal);
 registerDataPref("Max Energy Regen (0)", "Energy Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_energyImage, energyCharge);
 registerDataPref("Despawn Time (0s)", "Energy Stations", "Weapon_Traps", "int 0 1000", 0, false, false, trap_energyImage, timeout);
 registerDataPref("Can Recover (Y)", "Energy Stations", "Weapon_Traps", "bool", 1, false, false, trap_energyImage, mineCanRecover);
