@@ -33,6 +33,7 @@ exec("./Weapon_IncenMine.cs");
 exec("./Weapon_ElectroMine.cs");
 exec("./Weapon_HealStation.cs");
 exec("./Weapon_BearTrap.cs");
+exec("./Weapon_ClusterMine.cs");
 
 registerDataPref("Default Reserve Anti-Tank Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_tankImage, weaponUseCount);
 registerDataPref("Max Reserve Anti-Tank Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_tankImage, weaponReserveMax);
@@ -45,6 +46,9 @@ registerDataPref("Max Reserve Blast Mines", "Ammo", "Weapon_Traps", "int 0 1000"
 
 registerDataPref("Default Reserve Claymores", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_claymoreImage, weaponUseCount);
 registerDataPref("Max Reserve Claymores", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_claymoreImage, weaponReserveMax);
+
+registerDataPref("Default Reserve Cluster Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_ClusterImage, weaponUseCount);
+registerDataPref("Max Reserve Cluster Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_ClusterImage, weaponReserveMax);
 
 registerDataPref("Default Reserve Electric Mines", "Ammo", "Weapon_Traps", "int 0 1000", 1, false, false, mine_ElectroImage, weaponUseCount);
 registerDataPref("Max Reserve Electric Mines", "Ammo", "Weapon_Traps", "int 0 1000", 2, false, false, mine_ElectroImage, weaponReserveMax);
