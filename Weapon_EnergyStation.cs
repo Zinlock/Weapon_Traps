@@ -3,7 +3,7 @@ exec("./Weapon_EnergyStation_Particles.cs");
 datablock StaticShapeData(trap_energyChargeShape : mine_impactChargeShape)
 {
 	shapeFile = "./dts/EnergyStation.dts";
-	energy = 200;
+	health = 200;
 	
 	directMult = 1;
 	radiusMult = 1.4;
