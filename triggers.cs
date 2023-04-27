@@ -59,6 +59,9 @@ function customTrigger128::onTickCheck(%db, %trig)
 {
 	cancel(%trig.triggerLoop);
 
+	if(!isObject(%trig))
+		return;
+
 	%cts = %trig.getNumObjects();
 
 	if(isFunction(%trig.tickCallback) && %cts > 0)
@@ -84,6 +87,9 @@ function customTickTrigger128::onLeaveTrigger(%db, %trig, %obj) { customTrigger1
 function customTickTrigger128::onTickCheck(%db, %trig)
 {
 	cancel(%trig.triggerLoop);
+
+	if(!isObject(%trig))
+		return;
 
 	if(isFunction(%trig.tickCallback) && %trig.getNumObjects() > 0)
 		call(%trig.tickCallback, %trig);
