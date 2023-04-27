@@ -7,13 +7,13 @@ datablock StaticShapeData(mine_bearChargeShape : mine_impactChargeShape)
 
 	triggerDelay = 0;
 	triggerSound = mine_triggerBearSound;
-	triggerProjectile = mine_scrapProjectile;
+	triggerProjectile = mine_bearDestroyedProjectile;
 	triggerMask = $TypeMasks::PlayerObjectType;
-	triggerType = genericTrigger128;
+	triggerType = customTrigger128;
 	triggerSize = "1.8 1.8 1";
 
 	enterCallback = "trap_bearEnter";
-	tickCallback = "";
+	tickCallback = "trap_bearEnter";
 };
 
 datablock AudioProfile(mine_deployBearSound)
@@ -43,6 +43,15 @@ datablock AudioProfile(mine_triggerBearSound)
 	pitchRange = 4;
 };
 
+datablock AudioProfile(mine_triggerBreakBearSound)
+{
+	filename    = "./wav/trigger_bear_2.wav";
+	description = AudioDefault3D;
+	preload = true;
+
+	pitchRange = 4;
+};
+
 datablock AudioProfile(mine_destroyBearSound)
 {
 	filename    = "./wav/destroy_bear.wav";
@@ -50,6 +59,50 @@ datablock AudioProfile(mine_destroyBearSound)
 	preload = true;
 
 	pitchRange = 4;
+};
+
+datablock DebrisData(mine_bearJawBDebris : mine_scrapCogDebris) { shapeFile = "./dts/debrisBearJawB.dts"; };
+datablock ExplosionData(mine_bearJawBExplosion : mine_scrapCogExplosion) { debris = mine_bearJawBDebris; debrisNum = 1; debrisNumVariance = 0; };
+
+datablock DebrisData(mine_bearJawADebris : mine_bearJawBDebris) { shapeFile = "./dts/debrisBearJawA.dts"; };
+datablock ExplosionData(mine_bearJawAExplosion : mine_bearJawBExplosion) { debris = mine_bearJawADebris; subExplosion[0] = mine_bearJawBExplosion; };
+
+datablock DebrisData(mine_bearBodyDebris : mine_bearJawBDebris) { shapeFile = "./dts/debrisBearBody.dts"; };
+datablock ExplosionData(mine_bearBodyExplosion : mine_bearJawBExplosion) { debris = mine_bearBodyDebris; subExplosion[0] = mine_bearJawAExplosion; };
+
+datablock ExplosionData(mine_bearExplosion)
+{
+	lifeTimeMS = 150;
+
+	subExplosion[1] = mine_bearBodyExplosion;
+
+	soundProfile = mine_destroyBearSound;
+	explosionScale = "1 1 1";
+
+	particleEmitter = "";
+	particleDensity = 100;
+	particleRadius = 0.2;
+
+	impulseRadius = 0;
+	impulseForce = 0;
+
+	damageRadius = 0;
+	radiusDamage = 0;
+};
+
+datablock ProjectileData(mine_bearDestroyedProjectile)
+{
+	directDamageType  = $DamageType::mineStationDirect;
+	radiusDamageType  = $DamageType::mineStationDirect;
+	explosion           = mine_bearExplosion;
+
+	explodeOnDeath        = false;  
+
+	armingDelay         = 5000;
+	lifetime            = 5000;
+	fadeDelay           = 5000;
+	bounceElasticity    = 0.0;
+	bounceFriction  	  = 1.0;
 };
 
 datablock ItemData(mine_bearItem : mine_impactItem)
@@ -108,11 +161,7 @@ function mine_bearChargeShape::onAdd(%data, %obj)
 	mine_impactChargeShape::onAdd(%data, %obj);
 }
 
-function mine_bearChargeShape::onRemove(%data, %obj)
-{
-	serverPlay3D(mine_destroyBearSound, %obj.getPosition());
-	mine_impactChargeShape::onRemove(%data, %obj);
-}
+function mine_bearChargeShape::onRemove(%data, %obj) { mine_impactChargeShape::onRemove(%data, %obj); }
 
 function trap_bearEnter(%trigger, %hit)
 {
@@ -155,6 +204,7 @@ function trap_bearLoop(%trigger, %hit)
 
 	if(vectorLen(%hit.getVelocity()) > mine_bearImage.escapeVelocity)
 	{
+		serverPlay3D(mine_triggerBreakBearSound, %trigger.getPosition());
 		%hit.damage(%trigger.sourceShape.client, %trigger.sourceShape.getPosition(), mine_bearImage.escapeDamage, $DamageType::Direct);
 		%trigger.sourceShape.mineExplode(%trigger.explosionScale, vectorScale(%trigger.sourceShape.getUpVector(), %trigger.explosionOffset));
 		return;
