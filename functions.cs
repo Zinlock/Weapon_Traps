@@ -11,7 +11,7 @@ function WeaponImage::minePlaceCheck(%this, %obj, %slot, %ray)
 
 	if(!$Pref::XMines::mineStack && !%this.allowMineStacking)
 	{
-		%col = containerRayCast(vectorAdd(%pos, vectorScale(%vec, 0.1)), vectorAdd(%pos, vectorScale(%vec, -0.1)), $TypeMasks::StaticObjectType | $TypeMasks::FxBrickObjectType);
+		%col = containerRayCast(vectorAdd(%pos, vectorScale(%vec, 0.1)), vectorAdd(%pos, vectorScale(%vec, -0.1)), $trapStaticTypemask | $TypeMasks::FxBrickObjectType);
 		if(%col && %col.isLandMine && !%col.allowMineStacking)
 		{
 			%obj.client.centerPrint("<font:arial:14>\c5Can't stack mines!", 1.5);
@@ -129,7 +129,7 @@ function StaticShape::mineDetachLoop(%obj)
 
 	%pos = %obj.getPosition();
 	%vec = %obj.getUpVector();
-	%ray = containerRayCast(vectorAdd(%pos, vectorScale(%vec, 0.1)), vectorAdd(%pos, vectorScale(%vec, -0.1)), $TypeMasks::FxBrickObjectType | $TypeMasks::StaticObjectType, %obj);
+	%ray = containerRayCast(vectorAdd(%pos, vectorScale(%vec, 0.1)), vectorAdd(%pos, vectorScale(%vec, -0.1)), $TypeMasks::FxBrickObjectType | $trapStaticTypemask, %obj);
 	if(%ray != %obj && !isObject(%ray) && !$Pref::XMines::mineFloat)
 	{
 		if(%db.explodeOnDetach)
@@ -183,8 +183,8 @@ function mineCanTrigger(%src, %col)
 
 function checkLOS(%pos, %col, %ex0, %ex1, %ex2, %ex3)
 {
-	//%mask = $TypeMasks::FxBrickObjectType | $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType | $TypeMasks::StaticObjectType;
-	%mask = $TypeMasks::FxBrickObjectType | $TypeMasks::StaticObjectType;
+	//%mask = $TypeMasks::FxBrickObjectType | $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType | $trapStaticTypemask;
+	%mask = $TypeMasks::FxBrickObjectType | $trapStaticTypemask;
 	checkLOSMask(%pos, %col, %mask, %ex0, %ex1, %ex2, %ex3);
 }
 
@@ -212,7 +212,7 @@ function checkLOSMask(%pos, %col, %mask, %ex0, %ex1, %ex2, %ex3)
 				}
 			}
 		}
-		else if(%type & $TypeMasks::VehicleObjectType | $TypeMasks::StaticObjectType | $TypeMasks::FxBrickObjectType)
+		else if(%type & $TypeMasks::VehicleObjectType | $trapStaticTypemask | $TypeMasks::FxBrickObjectType)
 		{
 			%ray = containerRayCast(%pos, %col.getWorldBoxCenter(), %mask, %ex0, %ex1, %ex2, %ex3);
 			if(!isObject(%ray) || %ray == %col)

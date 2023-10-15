@@ -188,9 +188,9 @@ function mine_impactImage::onFire(%this, %obj, %slot)
 	%vec = %obj.getEyeVector();
 	%end = vectorAdd(%eye, vectorScale(%vec, %this.mineDeployDistance));
 
-	%ray = containerRayCast(%eye, %end, $TypeMasks::FxBrickObjectType | $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType | $TypeMasks::StaticObjectType, %obj);
+	%ray = containerRayCast(%eye, %end, $TypeMasks::FxBrickObjectType | $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType | $trapStaticTypemask, %obj);
 
-	if(isObject(%ray) && %ray.getType() & ($TypeMasks::FxBrickObjectType | $TypeMasks::StaticObjectType))
+	if(isObject(%ray) && %ray.getType() & ($TypeMasks::FxBrickObjectType | $trapStaticTypemask))
 	{
 		if(%this.minePlaceCheck(%obj, %slot, %ray))
 		{

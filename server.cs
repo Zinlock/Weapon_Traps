@@ -18,6 +18,8 @@ else
 
 $trapTriggerDebug = false;
 
+$trapStaticTypemask = $TypeMasks::InteriorObjectType | $TypeMasks::TerrainObjectType | $TypeMasks::StaticShapeObjectType; // workaround for rebuilt
+
 exec("./package.cs");
 exec("./functions.cs");
 exec("./triggers.cs");
